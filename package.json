@@ -1,7 +1,6 @@
 {
   "name": "sj-staking-fronend-new",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@apollo/client": "^3.12.4",
     "@coinbase/wallet-sdk": "^3.9.3",
