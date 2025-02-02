@@ -1,0 +1,73 @@
+
+f (isRunningOnMiniApp) {
+          const approvalAmount = (
+            BigInt(
+              tableData[Number(userLevel) + 1]?.sjToBurn ??
+                DEFAULT_TOKEN_APPROVAL_AMOUNT
+            ) * BigInt(10 ** 18)
+          ).toString();
+          // Transfers can also be at most 1 hour in the future.
+
+          const deadline = Math.floor(
+            (Date.now() + 2 * 60 * 60 * 1000) / 1000
+          ).toString();
+          // Transfers can also be at most 1 hour in the future.
+
+          const permitEvolve = {
+            permitted: {
+              token: tokenAddress,
+              amount: approvalAmount
+            },
+            nonce: Date.now().toString(),
+            deadline
+          };
+          const permitEvolveArgsForm = [
+            [permitEvolve.permitted.token, permitEvolve.permitted.amount],
+            permitEvolve.nonce,
+            permitEvolve.deadline
+          ];
+
+          const transferDetails = {
+            to: ZERO_ADDRESS,
+            requestedAmount: approvalAmount
+          };
+
+          const transferDetailsArgsForm = [
+            transferDetails.to,
+            transferDetails.requestedAmount
+          ];
+
+          const { finalPayload } = await MiniKit.commandsAsync.sendTransaction({
+            transaction: [
+              {
+                address: rewardManagerAddress,
+                abi: RewardManagerAbi.filter(
+                  ({ name }) => name == "evolveWithPermit2"
+                ),
+                functionName: "evolveWithPermit2",
+                args: [
+                  permitEvolveArgsForm,
+                  transferDetailsArgsForm,
+                  "PERMIT2_SIGNATURE_PLACEHOLDER_0"
+                ]
+              }
+            ],
+            permit2: [
+              {
+                ...permitEvolve,
+                spender: rewardManagerAddress
+              }
+            ]
+          });
+          if (finalPayload?.status === "success") {
+            setTransactionId(finalPayload.transaction_id);
+          } else {
+            setLoading(false);
+            if (
+              finalPayload.error_code !== SendTransactionErrorCodes.UserRejected
+            ) {
+              toast.error(t("dashboard.evolve.transactionFailed")); // Using t for failure message
+            }
+          }
+        
+      }

@@ -1,0 +1,93 @@
+/* components/EvolveBanner.module.css */
+.banner {
+    /* width: 300px; */
+    padding: 10px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .banner::before,
+  .banner::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    width: 4px;
+    border-radius: 5px;
+    background-color: #000;
+  }
+  
+  .banner::before {
+    left: 0;
+  }
+  
+  .banner::after {
+    right: 0;
+  }
+  
+  .bannerTop,
+  .bannerBottom {
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: #000;
+  }
+  
+  .bannerTop {
+    top: 0;
+  }
+  
+  .bannerBottom {
+    bottom: 0;
+  }
+  
+  .flagBanner {
+    /* width: 300px; */
+    /* padding: 10px 20px; */
+    padding: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .flagBanner::before,
+  .flagBanner::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    width: 2px;
+    border-radius: 5px;
+    background-color: #000;
+  }
+  
+  .flagBanner::before {
+    left: 0;
+  }
+  
+  .flagBanner::after {
+    right: 0;
+  }
+  
+  .flagBannerTop,
+  .flagBannerBottom {
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    height: 2px;
+    border-radius: 5px;
+    background-color: #000;
+  }
+  
+  .flagBannerTop {
+    top: 0;
+  }
+  
+  .flagBannerBottom {
+    bottom: 0;
+  }
